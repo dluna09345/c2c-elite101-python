@@ -1,4 +1,8 @@
 
+import requests
+import time
+import random
+
 """
     Welcome to Elite 101 this program is a starter for your chatbot project.
     The starter prompts the user to enter their name and then greets them with a personalized message.
@@ -19,9 +23,39 @@ def get_user_name():
 def greet_user(name):
     print(f"Hello, {name}!")
 
+
+
+
+
+def get_order_status(order_id):
+    statuses = ["received", "preparing", "on the way", "delivered", "cancelled"]
+    status = random.choice(statuses)
+    estimated_arrival = random.randint(10, 60)  # Random time between 10 and 60 minutes
+    return {
+        "order_id": order_id,
+        "status": status,
+        "estimated_arrival": f"{estimated_arrival} minutes"
+    }
+
 def main():
-    user_name = get_user_name()
-    greet_user(user_name)
+    while True:
+        choice = input("Please choose an option (Get order status or Exit): ")
+
+        if choice == "Get order status":
+            order_id = input("Please enter your order ID: ")
+            if len(order_id) != 6:
+                print("Invalid order ID. Please try again.")
+                continue
+            order_status = get_order_status(order_id)
+            print(f"Order ID: {order_status['order_id']}")
+            print(f"Status: {order_status['status']}")
+            print(f"Estimated Arrival: {order_status['estimated_arrival']}")
+        elif choice == "Exit":
+            print("Thank you for using Elite 101!")
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please try again.")
 
 if __name__ == "__main__":
     main()

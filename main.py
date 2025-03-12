@@ -51,9 +51,14 @@ def get_order_status(order_id):
 def main():
     while True:
         choice = input("Please choose an option (Get order status or Exit): ")
+        orders = []
 
         if choice == "Get order status":
             order_id = input("Please enter your 6 digit order ID: ")
+            if order_id == order_id in orders:
+                print("Order ID already checked. Please try again.")
+                continue
+            orders.append(order_id)
             if len(order_id) != 6:
                 print("Invalid order ID. Please try again.")
                 continue

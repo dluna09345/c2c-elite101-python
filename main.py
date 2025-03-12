@@ -1,5 +1,4 @@
 
-import requests
 import time
 import random
 
@@ -25,13 +24,25 @@ def greet_user(name):
 
 
 
-
-
 def get_order_status(order_id):
     statuses = ["received", "preparing", "on the way", "delivered", "cancelled"]
     status = random.choice(statuses)
-    estimated_arrival = random.randint(10, 60)  # Random time between 10 and 60 minutes
-    return {
+    if status == "cancelled":
+        return {
+            "order_id": order_id,
+            "status": status,
+            "estimated_arrival": "N/A"
+        }
+    elif status == "delivered":
+        return {
+            "order_id": order_id,
+            "status": status,
+            "estimated_arrival": "Delivered"
+        }
+    else:
+        estimated_arrival = random.randint(10, 60)
+          # Random time between 10 and 60 minutes
+        return {
         "order_id": order_id,
         "status": status,
         "estimated_arrival": f"{estimated_arrival} minutes"
@@ -42,7 +53,7 @@ def main():
         choice = input("Please choose an option (Get order status or Exit): ")
 
         if choice == "Get order status":
-            order_id = input("Please enter your order ID: ")
+            order_id = input("Please enter your 6 digit order ID: ")
             if len(order_id) != 6:
                 print("Invalid order ID. Please try again.")
                 continue
